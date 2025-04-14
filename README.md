@@ -26,6 +26,7 @@ The Context API consists of three main parts:
 
 3. **Consumer or `useContext`**:
    - The `Consumer` component or the `useContext` hook is used to access the context value in child components.
+   - The `useContext` hook allows you to access the value of a context directly in a functional component.  It eliminates the need to wrap components with the `Consumer` componenet, making the code cleaner and easier to read.  
 
 ---
 
@@ -64,13 +65,13 @@ interface UserContextType {
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
-// Create the context with a default value of undefined
-const UserContext = createContext<UserContextType | undefined>(undefined);
-
 // Create a provider component
 interface UserProviderProps {
   children: ReactNode;
 }
+
+// Create the context with a default value of undefined
+const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -83,13 +84,13 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 };
 
 // Custom hook to use the UserContext
-export const useUser = (): UserContextType => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error('useUser must be used within a UserProvider');
-  }
-  return context;
-};
+// export const useUser = (): UserContextType => {
+//   const context = useContext(UserContext);
+//   if (!context) {
+//     throw new Error('useUser must be used within a UserProvider');
+//   }
+//   return context;
+// };
 ```
 
 ---
@@ -118,14 +119,22 @@ export default App;
 ---
 
 ##### **Child Component**
-Access the context using the `useUser` custom hook.
+Access the context using the `useUser` custom hook or access the context directly using useContext.
 
 ```tsx
-import React from 'react';
+import React, { useContext } from 'react';
 import { useUser } from '../context/UserContext';
 
 const UserProfile: React.FC = () => {
-  const { user, setUser } = useUser();
+  //custom hook
+  //const { user, setUser } = useUser();
+
+  //built in hook
+  const context = useContext(UserContext);
+
+  if (!context) {
+    throw new Error('UserProfile must be used within a UserProvider');
+  }
 
   const handleLogin = () => {
     setUser({ name: 'John Doe', age: 30 });
