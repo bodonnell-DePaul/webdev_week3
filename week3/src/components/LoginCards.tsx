@@ -24,7 +24,6 @@ const LoginCards: React.FC = () => {
                 )
             :
             (
-
                     <Card>
                         <Card.Body>
                             <p>Brian O'Donnell</p>
