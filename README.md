@@ -247,6 +247,193 @@ The Context API is a powerful tool for managing global state in React applicatio
 
 ---
 
+### Using Bootstrap with React
+
+Bootstrap is a popular CSS framework that helps you build responsive and visually appealing user interfaces. To use Bootstrap in React, you can use **React-Bootstrap**, a library that provides Bootstrap components as React components.
+
+---
+
+### **React-Bootstrap**
+
+React-Bootstrap is a complete re-implementation of Bootstrap components using React. It eliminates the need for jQuery and provides a more React-friendly way to use Bootstrap.
+
+#### **React-Bootstrap Documentation**:  
+[React-Bootstrap Official Website](https://react-bootstrap.github.io/)
+
+---
+
+### **Installation**
+
+To install React-Bootstrap and Bootstrap CSS, follow these steps:
+
+1. Install React-Bootstrap:
+
+   ```bash
+   npm install react-bootstrap bootstrap
+   ```
+
+2. Import Bootstrap CSS in your `index.tsx` or `App.tsx` file:
+
+   ```tsx
+   // filepath: /home/bodonnell/lectures/webdev_week3/src/index.tsx
+   import 'bootstrap/dist/css/bootstrap.min.css';
+   import React from 'react';
+   import ReactDOM from 'react-dom';
+   import App from './App';
+
+   ReactDOM.render(<App />, document.getElementById('root'));
+   ```
+
+---
+
+### **Best Practices**
+
+1. **Use React-Bootstrap Components**:
+   - Instead of using raw HTML with Bootstrap classes, use React-Bootstrap components for better integration with React.
+
+2. **Customize Bootstrap**:
+   - Use a custom Bootstrap theme or override styles with your own CSS to match your application's design.
+
+3. **Keep Components Modular**:
+   - Use React-Bootstrap components in a modular way to keep your code clean and reusable.
+
+4. **Lazy Load Components**:
+   - Use lazy loading for large components to improve performance.
+
+---
+
+### **Code Examples**
+
+#### **Navbar Example**
+
+```tsx
+import React from 'react';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+
+const AppNavbar: React.FC = () => {
+  return (
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
+        <Navbar.Brand href="/">MyApp</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link href="/contact">Contact</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
+
+export default AppNavbar;
+```
+
+---
+
+#### **Button Example**
+
+```tsx
+// filepath: /home/bodonnell/lectures/webdev_week3/src/components/ButtonExample.tsx
+import React from 'react';
+import { Button } from 'react-bootstrap';
+
+const ButtonExample: React.FC = () => {
+  return (
+    <div>
+      <Button variant="primary">Primary Button</Button>
+      <Button variant="secondary" className="ms-2">Secondary Button</Button>
+    </div>
+  );
+};
+
+export default ButtonExample;
+```
+
+---
+
+#### **Form Example**
+
+```tsx
+// filepath: /home/bodonnell/lectures/webdev_week3/src/components/FormExample.tsx
+import React, { useState } from 'react';
+import { Form, Button, Container } from 'react-bootstrap';
+
+const FormExample: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Email:', email, 'Password:', password);
+  };
+
+  return (
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </Container>
+  );
+};
+
+export default FormExample;
+```
+
+---
+
+#### **Card Example**
+
+```tsx
+// filepath: /home/bodonnell/lectures/webdev_week3/src/components/CardExample.tsx
+import React from 'react';
+import { Card, Button } from 'react-bootstrap';
+
+const CardExample: React.FC = () => {
+  return (
+    <Card style={{ width: '18rem' }}>
+      <Card.Img variant="top" src="https://via.placeholder.com/150" />
+      <Card.Body>
+        <Card.Title>Card Title</Card.Title>
+        <Card.Text>
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+        </Card.Text>
+        <Button variant="primary">Go somewhere</Button>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default CardExample;
+```
+
+---
+
+
 ### React Routing with Hyperlinks
 
 React uses a library called **React Router** to handle routing in single-page applications (SPAs). React Router allows you to define routes and navigate between different components or pages without reloading the entire page. This is achieved by updating the browser's history and rendering the appropriate components dynamically.
@@ -636,191 +823,5 @@ export default Dashboard;
 
 6. **Authentication**:
    - Protect routes using higher-order components or hooks to check user authentication.
-
----
-
-### Using Bootstrap with React
-
-Bootstrap is a popular CSS framework that helps you build responsive and visually appealing user interfaces. To use Bootstrap in React, you can use **React-Bootstrap**, a library that provides Bootstrap components as React components.
-
----
-
-### **React-Bootstrap**
-
-React-Bootstrap is a complete re-implementation of Bootstrap components using React. It eliminates the need for jQuery and provides a more React-friendly way to use Bootstrap.
-
-#### **React-Bootstrap Documentation**:  
-[React-Bootstrap Official Website](https://react-bootstrap.github.io/)
-
----
-
-### **Installation**
-
-To install React-Bootstrap and Bootstrap CSS, follow these steps:
-
-1. Install React-Bootstrap:
-
-   ```bash
-   npm install react-bootstrap bootstrap
-   ```
-
-2. Import Bootstrap CSS in your `index.tsx` or `App.tsx` file:
-
-   ```tsx
-   // filepath: /home/bodonnell/lectures/webdev_week3/src/index.tsx
-   import 'bootstrap/dist/css/bootstrap.min.css';
-   import React from 'react';
-   import ReactDOM from 'react-dom';
-   import App from './App';
-
-   ReactDOM.render(<App />, document.getElementById('root'));
-   ```
-
----
-
-### **Best Practices**
-
-1. **Use React-Bootstrap Components**:
-   - Instead of using raw HTML with Bootstrap classes, use React-Bootstrap components for better integration with React.
-
-2. **Customize Bootstrap**:
-   - Use a custom Bootstrap theme or override styles with your own CSS to match your application's design.
-
-3. **Keep Components Modular**:
-   - Use React-Bootstrap components in a modular way to keep your code clean and reusable.
-
-4. **Lazy Load Components**:
-   - Use lazy loading for large components to improve performance.
-
----
-
-### **Code Examples**
-
-#### **Navbar Example**
-
-```tsx
-import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
-
-const AppNavbar: React.FC = () => {
-  return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-      <Container>
-        <Navbar.Brand href="/">MyApp</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
-            <Nav.Link href="/contact">Contact</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-  );
-};
-
-export default AppNavbar;
-```
-
----
-
-#### **Button Example**
-
-```tsx
-// filepath: /home/bodonnell/lectures/webdev_week3/src/components/ButtonExample.tsx
-import React from 'react';
-import { Button } from 'react-bootstrap';
-
-const ButtonExample: React.FC = () => {
-  return (
-    <div>
-      <Button variant="primary">Primary Button</Button>
-      <Button variant="secondary" className="ms-2">Secondary Button</Button>
-    </div>
-  );
-};
-
-export default ButtonExample;
-```
-
----
-
-#### **Form Example**
-
-```tsx
-// filepath: /home/bodonnell/lectures/webdev_week3/src/components/FormExample.tsx
-import React, { useState } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
-
-const FormExample: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Email:', email, 'Password:', password);
-  };
-
-  return (
-    <Container>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </Container>
-  );
-};
-
-export default FormExample;
-```
-
----
-
-#### **Card Example**
-
-```tsx
-// filepath: /home/bodonnell/lectures/webdev_week3/src/components/CardExample.tsx
-import React from 'react';
-import { Card, Button } from 'react-bootstrap';
-
-const CardExample: React.FC = () => {
-  return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="https://via.placeholder.com/150" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-  );
-};
-
-export default CardExample;
-```
 
 ---
