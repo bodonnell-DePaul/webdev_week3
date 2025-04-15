@@ -10,6 +10,8 @@ interface User {
 interface UserContextType {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  previousLogins: User[];
+  addPreviousLogin: (user: User) => void;
 }
 
 // Create a provider component
@@ -20,20 +22,20 @@ interface UserProviderProps {
 // Create the context with a default value of undefined
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 
-//const genericContext = createContext(undefined);
-
-
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
+    const [previousLogins, setPreviousLogins] = useState<User[]>([]);
 
-  return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
-  );
+    const addPreviousLogin = (user: User) => {
+        setPreviousLogins((prev) => [...prev, user]);
+    };
+
+    return (
+        <UserContext.Provider value={{ user, setUser, previousLogins, addPreviousLogin }}>
+            {children}
+        </UserContext.Provider>
+    );
 };
-
-
 
 // Custom hook to use the UserContext
 export const useUser = (): UserContextType => {
