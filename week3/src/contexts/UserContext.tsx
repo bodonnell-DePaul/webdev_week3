@@ -38,6 +38,9 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 };
 
 // Custom hook to use the UserContext
+// not completely necessary but good example to show
+// for functionality I can simply use:
+// export context = useContext(UserContext)
 export const useUser = (): UserContextType => {
   const context = useContext(UserContext);
 
