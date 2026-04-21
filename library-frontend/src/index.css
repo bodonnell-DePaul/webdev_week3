@@ -1,3 +1,4 @@
+/* Global design tokens and baseline typography. */
 :root {
   font-family: 'Trebuchet MS', 'Gill Sans', 'Avenir Next', sans-serif;
   line-height: 1.4;
@@ -10,14 +11,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Keep padding/border behavior predictable in all elements. */
 * {
   box-sizing: border-box;
 }
 
+/* Remove browser default spacing. */
 body {
   margin: 0;
 }
 
+/* Normalize heading/paragraph margins for tighter layout control. */
 h1,
 h2,
 p {

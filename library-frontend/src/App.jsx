@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 
+// API root can be overridden via Vite env var during deployment.
 const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:5000'
 
+// Human-readable labels for backend material states.
 const statusLabels = {
   Available: 'Available',
   CheckedOut: 'Checked Out',
@@ -10,11 +12,15 @@ const statusLabels = {
 }
 
 function App() {
+  // Master inventory data returned by the backend.
   const [materials, setMaterials] = useState([])
+
+  // UI state flags/messages for data loading and operation feedback.
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [notice, setNotice] = useState('')
 
+  // Form state for each workflow action.
   const [donationForm, setDonationForm] = useState({
     title: '',
     materialType: 'Book',
@@ -29,6 +35,7 @@ function App() {
   const [returnMaterialId, setReturnMaterialId] = useState('')
   const [lostMaterialId, setLostMaterialId] = useState('')
 
+  // Derived collections keep render logic simple and avoid repeated filtering.
   const availableMaterials = useMemo(
     () => materials.filter((item) => item.state === 'Available'),
     [materials],
@@ -44,6 +51,7 @@ function App() {
     [materials],
   )
 
+  // Lightweight request wrapper for consistent headers + error handling.
   async function request(path, options = {}) {
     const response = await fetch(`${API_BASE_URL}${path}`, {
       headers: {
@@ -52,10 +60,12 @@ function App() {
       ...options,
     })
 
+    // Some endpoints may return 204 No Content.
     if (response.status === 204) {
       return null
     }
 
+    // Parse JSON when possible; fall back to an empty object for non-JSON errors.
     const payload = await response.json().catch(() => ({}))
     if (!response.ok) {
       const message =
@@ -68,6 +78,7 @@ function App() {
     return payload
   }
 
+  // Refreshes inventory from the API and updates loading/error UI state.
   async function loadMaterials() {
     setLoading(true)
     setError('')
@@ -82,10 +93,12 @@ function App() {
     }
   }
 
+  // Initial data load on first render.
   useEffect(() => {
     loadMaterials()
   }, [])
 
+  // Handles donation form submission and refreshes inventory after success.
   async function handleDonate(event) {
     event.preventDefault()
     setError('')
@@ -105,6 +118,7 @@ function App() {
     }
   }
 
+  // Handles checkout operation for an available material.
   async function handleCheckout(event) {
     event.preventDefault()
     setError('')
@@ -129,6 +143,7 @@ function App() {
     }
   }
 
+  // Handles return operation for a checked-out material.
   async function handleReturn(event) {
     event.preventDefault()
     setError('')
@@ -151,6 +166,7 @@ function App() {
     }
   }
 
+  // Handles lost declaration for any non-lost material.
   async function handleLost(event) {
     event.preventDefault()
     setError('')
@@ -174,6 +190,7 @@ function App() {
   }
 
   return (
+    // Top-level app shell containing all sections of the management console.
     <main className="page-shell">
       <header className="hero">
         <p className="eyebrow">Neighborhood Library Desk</p>
@@ -184,6 +201,7 @@ function App() {
         </p>
       </header>
 
+      {/* High-level metrics derived from current inventory state. */}
       <section className="status-strip" aria-label="library status overview">
         <article>
           <h2>Total Materials</h2>
@@ -199,6 +217,7 @@ function App() {
         </article>
       </section>
 
+      {/* Shared feedback area for operation success/failure messages. */}
       {(error || notice) && (
         <section className="feedback" aria-live="polite">
           {error && <p className="error">{error}</p>}
@@ -206,6 +225,7 @@ function App() {
         </section>
       )}
 
+      {/* Action forms for each lifecycle operation. */}
       <section className="action-grid">
         <form className="panel" onSubmit={handleDonate}>
           <h2>Donate Material</h2>
@@ -336,6 +356,7 @@ function App() {
         </form>
       </section>
 
+      {/* Read-only table showing current state of all materials. */}
       <section className="inventory panel">
         <h2>Inventory Snapshot</h2>
         {loading ? (

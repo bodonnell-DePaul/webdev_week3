@@ -1,3 +1,4 @@
+/* Main content container with centered, responsive layout. */
 .page-shell {
   width: min(1120px, 100%);
   margin: 0 auto;
@@ -5,6 +6,7 @@
   box-sizing: border-box;
 }
 
+/* Hero banner with layered gradients for visual focus. */
 .hero {
   background:
     radial-gradient(circle at 10% 10%, rgba(236, 123, 27, 0.36), transparent 38%),
@@ -17,6 +19,7 @@
   animation: rise 0.6s ease-out;
 }
 
+/* Small uppercase intro label above the hero heading. */
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.18em;
@@ -25,17 +28,20 @@
   color: #82562a;
 }
 
+/* Primary page heading inside hero. */
 .hero h1 {
   margin: 0.6rem 0;
   font-size: clamp(1.8rem, 4vw, 3rem);
   line-height: 1.1;
 }
 
+/* Introductory paragraph width limit for readability. */
 .hero-copy {
   max-width: 60ch;
   margin: 0;
 }
 
+/* Summary cards (total, available, checked out). */
 .status-strip {
   margin-top: 1rem;
   display: grid;
@@ -64,6 +70,7 @@
   font-weight: 700;
 }
 
+/* Shared container for success/error notices. */
 .feedback {
   margin-top: 1rem;
 }
@@ -75,6 +82,7 @@
   margin: 0;
 }
 
+/* Error and success message visual treatments. */
 .error {
   background: #ffe4df;
   border: 1px solid #f09f90;
@@ -87,6 +95,7 @@
   color: #1f5f32;
 }
 
+/* Two-column operation panel layout that collapses on small screens. */
 .action-grid {
   margin-top: 1rem;
   display: grid;
@@ -94,6 +103,7 @@
   gap: 0.9rem;
 }
 
+/* Card surface used for forms and inventory panel. */
 .panel {
   border-radius: 1rem;
   border: 1px solid #ded9cf;
@@ -107,6 +117,7 @@
   font-size: 1.1rem;
 }
 
+/* Form control spacing and baseline typography. */
 form {
   display: grid;
   gap: 0.65rem;
@@ -119,12 +130,14 @@ label {
   color: #473a2d;
 }
 
+/* Ensure controls inherit app typography settings. */
 input,
 select,
 button {
   font: inherit;
 }
 
+/* Base styling for text inputs and selects. */
 input,
 select {
   border: 1px solid #cfc7bb;
@@ -133,12 +146,14 @@ select {
   background: #fffefa;
 }
 
+/* Accessible focus ring for keyboard users. */
 input:focus,
 select:focus {
   outline: 2px solid #298ca1;
   border-color: #298ca1;
 }
 
+/* Primary action button styling and hover motion. */
 button {
   border: 0;
   border-radius: 0.7rem;
@@ -155,6 +170,7 @@ button:hover {
   box-shadow: 0 8px 18px rgba(31, 122, 140, 0.28);
 }
 
+/* Destructive action button styling for "lost" action. */
 button.danger {
   background: #c14523;
 }
@@ -163,6 +179,7 @@ button.danger:hover {
   box-shadow: 0 8px 18px rgba(193, 69, 35, 0.3);
 }
 
+/* Inventory panel spacing and horizontal scroll for narrow viewports. */
 .inventory {
   margin-top: 1rem;
 }
@@ -171,6 +188,7 @@ button.danger:hover {
   overflow-x: auto;
 }
 
+/* Table baseline structure for inventory snapshot. */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -189,6 +207,7 @@ th {
   color: #5a4d3d;
 }
 
+/* Pill badges for material state values. */
 .status {
   display: inline-block;
   border-radius: 999px;
@@ -212,6 +231,7 @@ th {
   color: #932d18;
 }
 
+/* Responsive layout: stack grid sections on smaller screens. */
 @media (max-width: 900px) {
   .action-grid {
     grid-template-columns: 1fr;
@@ -222,6 +242,7 @@ th {
   }
 }
 
+/* Simple entrance animation for hero block. */
 @keyframes rise {
   from {
     opacity: 0;
