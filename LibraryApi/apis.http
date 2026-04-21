@@ -1,0 +1,139 @@
+@baseUrl = http://localhost:5000
+@json = application/json
+
+###
+# Health check: list all materials
+GET {{baseUrl}}/api/materials
+Accept: {{json}}
+
+###
+# Get one material by id (existing)
+GET {{baseUrl}}/api/materials/1
+Accept: {{json}}
+
+###
+# Get one material by id (not found)
+GET {{baseUrl}}/api/materials/999999
+Accept: {{json}}
+
+###
+# Donate a new material (valid)
+POST {{baseUrl}}/api/materials/donate
+Content-Type: {{json}}
+Accept: {{json}}
+
+{
+	"title": "Refactoring",
+	"materialType": "Book",
+	"donorName": "Martin Fowler"
+}
+
+###
+# Donate a new material (validation error: missing title)
+POST {{baseUrl}}/api/materials/donate
+Content-Type: {{json}}
+Accept: {{json}}
+
+{
+	"title": "",
+	"materialType": "Magazine",
+	"donorName": "Community Donor"
+}
+
+###
+# Checkout material (valid - adjust id if already checked out)
+POST {{baseUrl}}/api/materials/1/checkout
+Content-Type: {{json}}
+Accept: {{json}}
+
+{
+	"borrowerName": "Student One"
+}
+
+###
+# Checkout material (validation error: missing borrower name)
+POST {{baseUrl}}/api/materials/2/checkout
+Content-Type: {{json}}
+Accept: {{json}}
+
+{
+	"borrowerName": ""
+}
+
+###
+# Checkout material (conflict: already checked out)
+# Use an id that is currently CheckedOut in your seed data.
+POST {{baseUrl}}/api/materials/3/checkout
+Content-Type: {{json}}
+Accept: {{json}}
+
+{
+	"borrowerName": "Second Borrower"
+}
+
+###
+# Return material (valid - use an id currently CheckedOut)
+POST {{baseUrl}}/api/materials/3/return
+Accept: {{json}}
+
+###
+# Return material (conflict: already available)
+POST {{baseUrl}}/api/materials/1/return
+Accept: {{json}}
+
+###
+# Return material (not found)
+POST {{baseUrl}}/api/materials/999999/return
+Accept: {{json}}
+
+###
+# Declare material lost (valid)
+POST {{baseUrl}}/api/materials/4/lost
+Accept: {{json}}
+
+###
+# Declare material lost (conflict: already lost)
+# Use an id that is currently Lost in your seed data.
+POST {{baseUrl}}/api/materials/6/lost
+Accept: {{json}}
+
+###
+# Declare material lost (not found)
+POST {{baseUrl}}/api/materials/999999/lost
+Accept: {{json}}
+
+###
+# Suggested sequence test:
+# 1) Donate -> 2) Checkout donated item -> 3) Return it -> 4) Mark it lost
+# After donating, copy the returned id into the requests below.
+
+POST {{baseUrl}}/api/materials/donate
+Content-Type: {{json}}
+Accept: {{json}}
+
+{
+	"title": "API Design Patterns",
+	"materialType": "DVD",
+	"donorName": "Faculty Donation"
+}
+
+###
+# Replace 1000 with the id returned by donate.
+POST {{baseUrl}}/api/materials/1000/checkout
+Content-Type: {{json}}
+Accept: {{json}}
+
+{
+	"borrowerName": "Sequence Tester"
+}
+
+###
+# Replace 1000 with the same id.
+POST {{baseUrl}}/api/materials/1000/return
+Accept: {{json}}
+
+###
+# Replace 1000 with the same id.
+POST {{baseUrl}}/api/materials/1000/lost
+Accept: {{json}}
+

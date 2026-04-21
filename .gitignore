@@ -134,3 +134,21 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# .NET build artifacts
+**/[Bb]in/
+**/[Oo]bj/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet and test output
+*.nupkg
+*.snupkg
+TestResults/
+
+# IDE folders
+.vs/
+.idea/

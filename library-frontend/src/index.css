@@ -1,0 +1,25 @@
+:root {
+  font-family: 'Trebuchet MS', 'Gill Sans', 'Avenir Next', sans-serif;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #2e2a22;
+  background: linear-gradient(180deg, #faf2e8, #f3eee5);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
